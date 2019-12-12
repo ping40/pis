@@ -4,12 +4,14 @@ import { ListComponent } from './list/list.component';
 import { DetailComponent } from './detail/detail.component';
 import { NewComponent } from './new/new.component';
 import { CommonMaterialModule } from '../common/common.material';
+import { EbbinghausRoutingModule } from './ebbinghaus..module';
 
 @NgModule({
   declarations: [ListComponent, DetailComponent, NewComponent],
   imports: [
     CommonModule,
-    CommonMaterialModule
+    CommonMaterialModule,
+    EbbinghausRoutingModule
   ]
 })
 export class EbbinghausModule { }

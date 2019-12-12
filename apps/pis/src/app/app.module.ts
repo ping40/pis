@@ -11,12 +11,12 @@ import { CommonMaterialModule } from './common/common.material';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    AppRoutingModule,
     BrowserModule, 
     HttpClientModule,
     EbbinghausModule,
     CommonMaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

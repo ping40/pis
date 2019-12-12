@@ -14,9 +14,7 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
-
-
+import { MatPaginatorModule } from '@angular/material';
 
 @NgModule({
   declarations: [],
@@ -34,7 +32,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     FormsModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatPaginatorModule
   ],
   exports:[
     MatCardModule,
@@ -49,7 +48,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     FormsModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatPaginatorModule
   ]
 })
 export class CommonMaterialModule { }
