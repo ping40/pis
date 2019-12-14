@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Message } from '@pis/api-interfaces';
+import { UserData } from '@pis/api-interfaces';
+import { Router } from '@angular/router';
+import { AuthenticationService } from './shared/auth/authentication.service';
 
 @Component({
   selector: 'pis-root',
@@ -8,6 +9,15 @@ import { Message } from '@pis/api-interfaces';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  hello$ = this.http.get<Message>('/api/hello');
-  constructor(private http: HttpClient) {}
+  currentUser: UserData;
+  
+  constructor(private router: Router,
+    private authenticationService: AuthenticationService) {
+      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    }
+
+    logout() {
+      this.authenticationService.logout();
+      this.router.navigate(['/login']);
+  }
 }

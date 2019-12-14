@@ -25,4 +25,9 @@ ng g @nrwl/angular:application ui
 
 nx g  @nrwl/nest:app api
 
+# 资料
+
+- 关于authentication and jwt
+- https://jasonwatmore.com/post/2019/06/22/angular-8-jwt-authentication-example-tutorial   
+
 

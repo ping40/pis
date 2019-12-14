@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 
 import {MatCardModule} from '@angular/material/card';
@@ -15,11 +15,10 @@ import { FormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
+export const material = [
+  CommonModule,
     MatCardModule,
     MatTableModule,
     MatProgressBarModule,
@@ -29,27 +28,10 @@ import { MatPaginatorModule } from '@angular/material';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
-    FormsModule,
+    FormsModule,  // 拿掉
     MatSnackBarModule,
     MatDialogModule,
     MatToolbarModule,
-    MatPaginatorModule
-  ],
-  exports:[
-    MatCardModule,
-    MatTableModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatSnackBarModule,
-    MatDialogModule,
-    MatToolbarModule,
-    MatPaginatorModule
-  ]
-})
-export class CommonMaterialModule { }
+    MatPaginatorModule,
+    ReactiveFormsModule // 拿掉
+];
