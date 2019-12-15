@@ -17,8 +17,8 @@ import { material } from './shared/common.material';
 @NgModule({
   declarations: [AppComponent, LoginComponent],
   imports: [
-    ...material,
-    BrowserModule, 
+    BrowserModule,
+    ...material, 
     HttpClientModule,
     AuthModule,
     EbbinghausModule,
