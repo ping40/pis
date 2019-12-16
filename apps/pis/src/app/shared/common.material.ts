@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from  '@angular/material';
+import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSortModule } from  '@angular/material';
 import {MatMenuModule} from '@angular/material/menu'; 
 
 
@@ -37,5 +37,6 @@ export const material = [
     ReactiveFormsModule, // 拿掉
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSortModule
 ];

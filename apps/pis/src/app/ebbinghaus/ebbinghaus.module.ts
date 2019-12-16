@@ -7,6 +7,7 @@ import { EbbinghausRoutingModule } from './ebbinghaus-routing.module';
 import { AuthModule } from '../shared/auth/auth.module';
 import { AuthGuard } from '../shared/auth/auth.guard';
 import { material } from '../shared/common.material';
+import { EbbinghausService } from './ebbinghaus.service';
 
 @NgModule({
   declarations: [ListComponent, DetailComponent, NewComponent],
@@ -17,7 +18,8 @@ import { material } from '../shared/common.material';
     EbbinghausRoutingModule
   ],
   providers:[
-    AuthGuard
+    AuthGuard,
+    EbbinghausService
   ]
 })
 export class EbbinghausModule { }

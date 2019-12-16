@@ -31,3 +31,10 @@ nx g  @nrwl/nest:app api
 - https://jasonwatmore.com/post/2019/06/22/angular-8-jwt-authentication-example-tutorial   
 
 
+
+Promise 的缺点：
+1：不能取消， 2： 由于 Promise 只会承载一个值
+
+函数响应式编程（FRP）： 
+
+Observable 必须被 subscribe 之后才会开始生产数据。如果没人 subscribe 它，那就什么都不会做。

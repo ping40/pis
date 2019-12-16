@@ -1,49 +1,59 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Component, ViewChild, AfterViewInit, ChangeDetectorRef} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import {of} from 'rxjs';
+import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {PageCondition, KPListDto} from '@pis/api-interfaces'
+import { EbbinghausService } from '../ebbinghaus.service';
 
 @Component({
   selector: 'pis-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+export class ListComponent implements AfterViewInit {
+  fromIndex = 1;
+  displayedColumns: string[] = ['fromIndex', 'title', 'created', 'state'];
+  data: KPListDto[] = [];
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  resultsLength = 0;
+  isLoadingResults = true;
+  isRateLimitReached = false;
 
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+  @ViewChild(MatPaginator, {static: false}) paginator123: MatPaginator;
+
+  constructor(private _httpClient: HttpClient,
+    private cdRef : ChangeDetectorRef,
+    private ebbinghausService: EbbinghausService) {}
+
+  ngAfterViewInit() {
+
+    this.paginator123.page.pipe(
+        startWith({}),
+        switchMap(() => {
+          console.log("in 0102 " + new Date() );
+          this.isLoadingResults = true;
+          const cond: PageCondition= new PageCondition(10, this.paginator123.pageIndex);
+          return this.ebbinghausService.list(cond);
+        }),
+        map(data => {
+          // Flip flag to show that loading has finished.
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          this.fromIndex = this.paginator123.pageIndex * 10 + 1;
+          this.resultsLength = 1000;//data.total_count;
+
+          return data;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          // Catch if the GitHub API has reached its rate limit. Return empty data.
+          this.isRateLimitReached = true;
+          return of([]);
+        })
+      ).subscribe(data => {
+        this.data = data;
+        this.cdRef.detectChanges();
+      });
   }
 }
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];
