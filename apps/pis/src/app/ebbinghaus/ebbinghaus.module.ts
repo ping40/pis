@@ -8,9 +8,11 @@ import { AuthModule } from '../shared/auth/auth.module';
 import { AuthGuard } from '../shared/auth/auth.guard';
 import { material } from '../shared/common.material';
 import { EbbinghausService } from './ebbinghaus.service';
+import { MydatePipe } from '../shared/pipe/mydate.pipe';
+import { KpStatusPipe } from '../shared/pipe/kpStatus.pipe';
 
 @NgModule({
-  declarations: [ListComponent, DetailComponent, NewComponent],
+  declarations: [ListComponent, DetailComponent, NewComponent, MydatePipe, KpStatusPipe],
   imports: [
     ...material,
     AuthModule,
