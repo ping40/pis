@@ -1,8 +1,7 @@
-import {HttpClient} from '@angular/common/http';
-import {Component, ViewChild, AfterViewInit, ChangeDetectorRef} from '@angular/core';
+import {Component, ViewChild, AfterViewInit, ChangeDetectorRef, ElementRef} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {of} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {of, Observable, fromEvent, merge} from 'rxjs';
+import {catchError, map, startWith, switchMap, debounce, debounceTime} from 'rxjs/operators';
 import {PageCondition, KPListDto} from '@pis/api-interfaces'
 import { EbbinghausService } from '../ebbinghaus.service';
 
@@ -13,6 +12,7 @@ import { EbbinghausService } from '../ebbinghaus.service';
 })
 export class ListComponent implements AfterViewInit {
   fromIndex = 1;
+  filterContent = '';
   displayedColumns: string[] = ['fromIndex', 'title', 'created', 'state'];
   data: KPListDto[] = [];
 
@@ -20,27 +20,38 @@ export class ListComponent implements AfterViewInit {
   isLoadingResults = true;
   isRateLimitReached = false;
 
-  @ViewChild(MatPaginator, {static: false}) paginator123: MatPaginator;
+  @ViewChild('inputFilter', {static: false})
+  inputFilter:ElementRef;
+  
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
-  constructor(private _httpClient: HttpClient,
-    private cdRef : ChangeDetectorRef,
+  constructor(private cdRef : ChangeDetectorRef,
     private ebbinghausService: EbbinghausService) {}
 
   ngAfterViewInit() {
 
-    this.paginator123.page.pipe(
+    const eventObservable = fromEvent(
+      this.inputFilter.nativeElement, 'keyup')
+      .pipe(
+        map((e:any) => e.target.value),
+        debounceTime(250), //only search after 250 ms
+      );
+
+   merge(this.paginator.page,  eventObservable).
+     pipe(
         startWith({}),
         switchMap(() => {
-          console.log("in 0102 " + new Date() );
+          console.log("call  pis-api  0102 , filterContent: " + this.filterContent ) ;
           this.isLoadingResults = true;
-          const cond: PageCondition= new PageCondition(10, this.paginator123.pageIndex);
+          const cond: PageCondition= new PageCondition(10, this.paginator.pageIndex);
+          cond.filterContent = this.filterContent;
           return this.ebbinghausService.list(cond);
         }),
         map(data => {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
-          this.fromIndex = this.paginator123.pageIndex * 10 + 1;
+          this.fromIndex = this.paginator.pageIndex * 10 + 1;
           this.resultsLength = 1000;//data.total_count;
 
           return data;
@@ -55,5 +66,9 @@ export class ListComponent implements AfterViewInit {
         this.data = data;
         this.cdRef.detectChanges();
       });
+  }
+
+  getRecord(id: number) {
+    console.log(id);
   }
 }

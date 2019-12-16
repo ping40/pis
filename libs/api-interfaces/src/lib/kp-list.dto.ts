@@ -18,6 +18,7 @@ export enum KPStatus {Done, PARTIAL_DONE, NO_DONE}
 export class PageCondition {
     limit: number;
     pageNumber: number;
+    filterContent: string;
 
     constructor(limit:  number, pageNumber: number) {
         this.limit = limit;
