@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSortModule } from  '@angular/material';
 import {MatMenuModule} from '@angular/material/menu'; 
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
@@ -38,5 +39,6 @@ export const material = [
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
-    MatSortModule
+    MatSortModule,
+    MatGridListModule
 ];

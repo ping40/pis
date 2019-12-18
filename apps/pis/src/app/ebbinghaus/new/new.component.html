@@ -1,1 +1,11 @@
-<p>new works!</p>
+<div class="container">
+    <h1>新建知识点</h1>
+    <form  (ngSubmit)="onSubmit()">
+      <div class="form-group">
+           <angular-editor name="content" [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent" [config]="editorConfig"></angular-editor>
+      </div>
+
+      <button type="submit" class="btn btn-success">提交</button>
+
+    </form>
+</div>

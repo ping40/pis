@@ -4,6 +4,7 @@ import {of, Observable, fromEvent, merge} from 'rxjs';
 import {catchError, map, startWith, switchMap, debounce, debounceTime} from 'rxjs/operators';
 import {PageCondition, KPListDto} from '@pis/api-interfaces'
 import { EbbinghausService } from '../ebbinghaus.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pis-list',
@@ -13,7 +14,7 @@ import { EbbinghausService } from '../ebbinghaus.service';
 export class ListComponent implements AfterViewInit {
   fromIndex = 1;
   filterContent = '';
-  displayedColumns: string[] = ['fromIndex', 'title', 'created', 'state'];
+  displayedColumns: string[] = ['fromIndex', 'title', 'created', 'state', 'action'];
   data: KPListDto[] = [];
 
   resultsLength = 0;
@@ -26,7 +27,8 @@ export class ListComponent implements AfterViewInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   constructor(private cdRef : ChangeDetectorRef,
-    private ebbinghausService: EbbinghausService) {}
+    private ebbinghausService: EbbinghausService,
+    private route: Router) {}
 
   ngAfterViewInit() {
 
@@ -68,7 +70,7 @@ export class ListComponent implements AfterViewInit {
       });
   }
 
-  getRecord(id: number) {
-    console.log(id);
+  detail(id: number) {
+    this.route.navigate([`/knowledgepoint/detail/${id}`])
   }
 }

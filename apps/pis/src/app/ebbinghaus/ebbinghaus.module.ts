@@ -10,18 +10,30 @@ import { material } from '../shared/common.material';
 import { EbbinghausService } from './ebbinghaus.service';
 import { MydatePipe } from '../shared/pipe/mydate.pipe';
 import { KpStatusPipe } from '../shared/pipe/kpStatus.pipe';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { MemoComponent } from './memo/memo.component';
 
 @NgModule({
-  declarations: [ListComponent, DetailComponent, NewComponent, MydatePipe, KpStatusPipe],
+  declarations: [
+    ListComponent, 
+    DetailComponent, 
+    NewComponent, 
+    MydatePipe, 
+    KpStatusPipe, MemoComponent
+  ],
   imports: [
     ...material,
     AuthModule,
     CommonModule,
-    EbbinghausRoutingModule
+    EbbinghausRoutingModule,
+    AngularEditorModule
   ],
   providers:[
     AuthGuard,
     EbbinghausService
+  ],
+  entryComponents:[
+    MemoComponent
   ]
 })
 export class EbbinghausModule { }
