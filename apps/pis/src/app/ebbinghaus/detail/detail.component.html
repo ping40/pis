@@ -1,26 +1,32 @@
+<div class="container">
+  <h2>知识点时间:{{ dto.createDate | mydate }}</h2>
+  <div class="row">
+    <div class="col" [innerHtml]="dto.content"></div>
+  </div>
 
- <div class="container">
-    <h2>知识点时间:{{dto.createDate | mydate }}</h2> 
-    <div class="row"> 
-        <div class="col" [innerHtml]="dto.content">            
-        </div> 
-     </div> 
+  <br />
+  <h6>复习记录</h6>
+  <div class="row">
+    <mat-list>
+      <mat-list-item *ngFor="let item of dto.logs">
+        {{ item.reviewDate | mydate }}</mat-list-item
+      >
+    </mat-list>
+  </div>
 
-     <br/>
-     <h6>复习记录</h6>
-     <div class="row">
-        <mat-list>
-            <mat-list-item *ngFor="let item of dto.logs" > {{item.reviewDate | mydate}}</mat-list-item>
-           </mat-list>
-     </div> 
-     
-     <h3>备注</h3>
-     <button mat-icon-button （click)="addmemo()">
-      <mat-icon>add</mat-icon>增加备注
+  <h3>备注</h3>
+  <button mat-icon-button (click)="addmemo()">
+    <mat-icon>add</mat-icon>增加备注
+  </button>
+
+  <div class="row" *ngFor="let item of dto.comments">
+    <span>{{ item.createDate | date: "yyyy-MM-dd hh:mm" }} </span>
+    <p>{{ item.content }}</p>
+  </div>
+
+  <div class="row">
+    <button mat-raised-button color="primary" (click)="review()">
+      标记为复习过了
     </button>
-     <div class="row"> 
-         <div></div>
-     </div> 
-     
-  <button mat-raised-button color="primary"  (click)="review()">标记为复习过了</button>     
- </div>
+  </div>
+</div>

@@ -1,6 +1,5 @@
 
 import { CommonModule } from '@angular/common';
-
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -16,8 +15,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule, MatSortModule } from  '@angular/material';
 import {MatMenuModule} from '@angular/material/menu'; 
 import {MatGridListModule} from '@angular/material/grid-list';
-
-
 
 export const material = [
   CommonModule,

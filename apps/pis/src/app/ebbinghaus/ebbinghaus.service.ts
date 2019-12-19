@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PageCondition, KPListDto, KPDto, KPDetailDto } from '@pis/api-interfaces';
+import { PageCondition, KPListDto, KPDto, KPDetailDto, KPCommentDto } from '@pis/api-interfaces';
 
 @Injectable()
 export class EbbinghausService {
@@ -22,6 +22,10 @@ export class EbbinghausService {
 
   review(id: number): Observable<any> {
     return this.httpClient.post<any>('/api/knowledgepointlogs/', {kpId: id} );
+  }
+  
+  addComment(c: KPCommentDto): Observable<any> {
+    return this.httpClient.post<any>('/api/knowledgepointcomments', c);
   }
 
  }

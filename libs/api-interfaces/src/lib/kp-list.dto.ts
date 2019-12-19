@@ -21,6 +21,7 @@ export class  KPDetailDto extends KPListDto {
     
     content: string;
     logs: KPLog[];
+    comments: KPCommentDto[];
 }
 
 export class  KPLog {
@@ -61,4 +62,11 @@ export class KPDto {
   allDone: boolean;
   logs: KPLogDto[];
 }
-  
+
+export class KPCommentDto {
+    id: number;
+    kpId: number;
+    content: string;
+    createDate: Date;
+  }
+ 
