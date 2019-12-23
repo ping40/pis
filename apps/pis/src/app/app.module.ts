@@ -12,6 +12,7 @@ import { JwtInterceptor } from './shared/auth/jwt.interceptor';
 import { ErrorInterceptor } from './shared/auth/error.interceptor';
 import { LoggingInterceptor } from './shared/auth/logging.interceptor';
 import { material } from './shared/common.material';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { material } from './shared/common.material';
     AppRoutingModule
   ],
   providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
