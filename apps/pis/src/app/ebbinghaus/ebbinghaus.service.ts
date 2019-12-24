@@ -20,8 +20,8 @@ export class EbbinghausService {
     return this.httpClient.post<KPListDto[]>('/api/knowledgepoints/page', cond);
   }
 
-  today(): Observable<KPListDto[]> {
-    return this.httpClient.get<KPListDto[]>('/api/knowledgepoints/today/today');
+  todayReview(): Observable<KPListDto[]> {
+    return this.httpClient.get<KPListDto[]>('/api/knowledgepoints/today/review');
   }
 
   get(id: number): Observable<KPDetailDto> {

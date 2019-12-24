@@ -48,9 +48,9 @@ export class ListComponent implements AfterViewInit {
           console.log("call  pis-api  0102 , filterContent: " + this.filterContent ) ;
           this.isLoadingResults = true;
           if (this.selected === 'today') {
-            return this.ebbinghausService.today();
+            return this.ebbinghausService.todayReview();
           } else {
-            const cond: PageCondition= new PageCondition(10, this.paginator.pageIndex);
+            const cond: PageCondition= new PageCondition(10, this.paginator.pageIndex + 1);
             cond.filterContent = this.filterContent;
             return this.ebbinghausService.list(cond);
           }
