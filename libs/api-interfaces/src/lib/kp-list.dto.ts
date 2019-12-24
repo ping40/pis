@@ -19,6 +19,7 @@ export class  KPDetailDto extends KPListDto {
         super(id, title,createDate);
     }
     
+    isToday: boolean;
     content: string;
     logs: KPLog[];
     comments: KPCommentDto[];

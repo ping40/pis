@@ -1,6 +1,6 @@
 import {Component, ViewChild, AfterViewInit, ChangeDetectorRef, ElementRef} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {of, Observable, fromEvent, merge} from 'rxjs';
+import {of, Observable, fromEvent, merge, Subject} from 'rxjs';
 import {catchError, map, startWith, switchMap, debounce, debounceTime} from 'rxjs/operators';
 import {PageCondition, KPListDto} from '@pis/api-interfaces'
 import { EbbinghausService } from '../ebbinghaus.service';
@@ -20,7 +20,9 @@ export class ListComponent implements AfterViewInit {
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
+  subject = new Subject();
 
+  selected = 'all';
   @ViewChild('inputFilter', {static: false})
   inputFilter:ElementRef;
   
@@ -39,23 +41,34 @@ export class ListComponent implements AfterViewInit {
         debounceTime(250), //only search after 250 ms
       );
 
-   merge(this.paginator.page,  eventObservable).
+   merge(this.paginator.page,  eventObservable, this.subject).
      pipe(
         startWith({}),
         switchMap(() => {
           console.log("call  pis-api  0102 , filterContent: " + this.filterContent ) ;
           this.isLoadingResults = true;
-          const cond: PageCondition= new PageCondition(10, this.paginator.pageIndex);
-          cond.filterContent = this.filterContent;
-          return this.ebbinghausService.list(cond);
+          if (this.selected === 'today') {
+            return this.ebbinghausService.today();
+          } else {
+            const cond: PageCondition= new PageCondition(10, this.paginator.pageIndex);
+            cond.filterContent = this.filterContent;
+            return this.ebbinghausService.list(cond);
+          }
         }),
         map(data => {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
           this.fromIndex = this.paginator.pageIndex * 10 + 1;
-          this.resultsLength = 1000;//data.total_count;
-
+          if (this.selected === 'today') {
+             if (data) {
+               this.resultsLength = data.length;//data.total_count;
+             } else {
+               this.resultsLength = 0;
+             }
+          } else {
+            this.resultsLength = 1000;//data.total_count;
+          }
           return data;
         }),
         catchError(() => {
@@ -68,6 +81,10 @@ export class ListComponent implements AfterViewInit {
         this.data = data;
         this.cdRef.detectChanges();
       });
+  }
+
+  scopeChange() {
+    this.subject.next();
   }
 
   detail(id: number) {

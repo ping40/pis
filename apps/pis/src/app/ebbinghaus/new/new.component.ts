@@ -58,17 +58,26 @@ export class NewComponent implements OnInit {
     ]
 };
 
-
+id = 0;
 constructor(private cdRef : ChangeDetectorRef,
   private ebbinghausService: EbbinghausService,
+  private avtiveroute: ActivatedRoute,
   private route: Router) {}
 
   ngOnInit() {
+    const idStr = this.avtiveroute.snapshot.paramMap.get("id");
+    if( idStr !== '') {
+      this.id = parseInt(idStr, 10);
+      this.ebbinghausService.get(this.id).subscribe(data => (this.htmlContent  = data.content));
+    }
   }
 
   onSubmit() {
     const dto = new KPDto();
     dto.content = this.htmlContent;
+    dto.id = this.id;
+
+    console.log("in new.component.ts:  dto.content " + dto.content );
     this.ebbinghausService.edit(dto).
     subscribe(
       () => this.route.navigate(['/knowledgepoint/list'])

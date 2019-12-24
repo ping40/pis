@@ -1,10 +1,19 @@
-<button mat-icon-button routerLink="/knowledgepoint/edit">
+<button mat-icon-button style="width: 140px;" routerLink="/knowledgepoint/edit/0">
   <mat-icon>add</mat-icon>新增知识点
 </button>
 
 <div class="example-table-container">
-      <mat-form-field>
+    <mat-form-field>
+        <mat-label>列表范围</mat-label>
+        <mat-select (selectionChange)="scopeChange($event)" [(value)]="selected">
+            <mat-option value="all">所有知识点</mat-option>
+            <mat-option value="today">今天要复习的知识点</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="ml-3">
         <input matInput #inputFilter [(ngModel)]="filterContent" placeholder="搜索内容">
+        <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
 
       <table mat-table [dataSource]="data" class="example-table">

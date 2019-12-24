@@ -8,7 +8,7 @@ import { NewComponent } from './new/new.component';
 
 const knowledgePointRoutes: Routes = [
   { path: 'knowledgepoint/list', component: ListComponent , canActivate: [AuthGuard]},
-  { path: 'knowledgepoint/edit', component: NewComponent , canActivate: [AuthGuard]},
+  { path: 'knowledgepoint/edit/:id', component: NewComponent , canActivate: [AuthGuard]},
   { path: 'knowledgepoint/detail/:id', component: DetailComponent , canActivate: [AuthGuard]}
 ];
 

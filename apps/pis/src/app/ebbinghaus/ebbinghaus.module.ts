@@ -34,7 +34,8 @@ import { MemoComponent } from './memo/memo.component';
     EbbinghausService
   ],
   entryComponents:[
-    MemoComponent
+    MemoComponent,
+    DetailComponent
   ]
 })
 export class EbbinghausModule { }

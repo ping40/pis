@@ -8,12 +8,20 @@ export class EbbinghausService {
   
   constructor(private httpClient: HttpClient) {}
   
-  edit(dto: KPDto): Observable<KPDto> {    
-    return this.httpClient.post<KPDto>('/api/knowledgepoints', dto);
+  edit(dto: KPDto): Observable<KPDto> {
+    if( dto.id > 0) {
+      return this.httpClient.put<KPDto>('/api/knowledgepoints', dto);
+    } else {
+      return this.httpClient.post<KPDto>('/api/knowledgepoints', dto);
+    }    
   }
     
   list(cond: PageCondition): Observable<KPListDto[]> {
     return this.httpClient.post<KPListDto[]>('/api/knowledgepoints/page', cond);
+  }
+
+  today(): Observable<KPListDto[]> {
+    return this.httpClient.get<KPListDto[]>('/api/knowledgepoints/today/today');
   }
 
   get(id: number): Observable<KPDetailDto> {
@@ -22,6 +30,10 @@ export class EbbinghausService {
 
   review(id: number): Observable<any> {
     return this.httpClient.post<any>('/api/knowledgepointlogs/', {kpId: id} );
+  }
+  
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete<any>('/api/knowledgepoints/' + id );
   }
   
   addComment(c: KPCommentDto): Observable<any> {

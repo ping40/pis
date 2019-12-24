@@ -36,6 +36,16 @@ export class DetailComponent implements OnInit {
     });
   }
 
+  delete() {
+    this.ebbinghausService.delete(this.id).subscribe(() => {
+      this.router.navigate(['/knowledgepoint/list']);
+    });
+  }
+
+  edit() {
+      this.router.navigate(['/knowledgepoint/edit/' + this.id]);
+  }
+
   addmemo() {
     const dialogRef = this.dialog.open(MemoComponent, {
       width: "500px",

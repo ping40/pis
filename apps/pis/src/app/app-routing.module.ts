@@ -5,7 +5,7 @@ import { LoginComponent } from './shared/login/login.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '',   redirectTo: '/knowledgepoint', pathMatch: 'full' }
+  { path: '',   redirectTo: '/knowledgepoint/list', pathMatch: 'full' }
 ];
 
 @NgModule({
