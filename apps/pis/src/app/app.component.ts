@@ -17,6 +17,7 @@ export class AppComponent {
     }
 
     logout() {
+      this.currentUser = null;
       this.authenticationService.logout();
       this.router.navigate(['/login']);
   }

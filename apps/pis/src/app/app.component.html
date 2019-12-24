@@ -12,7 +12,8 @@
   <a mat-button [routerLink]="'/activities'"> Activities </a-->
 
   <span class="example-fill-remaining-space"></span>
-  <button
+  <span> {{currentUser?.name}}</span>
+  <button *ngIf="currentUser"
     mat-icon-button
     [matMenuTriggerFor]="menu"
     aria-label="Example icon-button with a menu"
