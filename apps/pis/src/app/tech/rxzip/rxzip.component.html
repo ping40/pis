@@ -1,0 +1,53 @@
+<h1 mat-dialog-title>Rx zip operator</h1>
+<div mat-dialog-content>
+        <h3>code: </h3>
+        <pre>
+                interface ZipObject {{ '{' }}
+                  value:  any;
+                  date: number;
+                  {{ '}'  }}
+
+
+                  zipResult: ZipObject[] = [];
+                  slowResult: ZipObject[] = [];
+                  quickResult: ZipObject[] = [];
+                
+                    const slow = timer(2000, 5000); 
+                    const quick = timer(2000, 2000); 
+                 
+                    const quickOne = quick.subscribe(x => {{ '{' }}
+                      this.quickResult.push({{ '{' }}value: x,
+                      date: new Date().getSeconds(){{ '}' }});
+                    {{ '}' }} );
+                
+                    const slowOne = slow.subscribe(x =>{{ '{' }}
+                      this.slowResult.push({{ '{' }}value: x,
+                      date: new Date().getSeconds(){{ '}' }});
+                    {{ '}' }} );
+                
+                    let count = 0;
+                    const one = zip( slow,  quick).subscribe(x =>{{ '{' }}
+                      if ( count > 5) {{ '{' }}
+                       one.unsubscribe();
+                       slowOne.unsubscribe();
+                       quickOne.unsubscribe();
+                      {{ '}' }}
+                      count++;
+                
+                      this.zipResult.push({{ '{' }}value: x,
+                      date: new Date().getSeconds(){{ '}' }});
+                    {{ '}' }} );
+                
+        </pre>
+     
+        <h3>zip result: </h3>
+        <div>{{zipResult | json}}</div>
+        <h3>slow result: </h3>
+        <div>{{slowResult | json}}</div>
+        <h3>quick result: </h3>
+        <div>{{quickResult | json}}</div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="begin()">开始</button>
+    <button mat-button (click)="onNoClick()">关闭</button>
+</div>

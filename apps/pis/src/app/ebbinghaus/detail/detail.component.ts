@@ -27,7 +27,9 @@ export class DetailComponent implements OnInit {
   }
 
   private getData() {
-    this.ebbinghausService.get(this.id).subscribe(data => (this.dto = data));
+    this.ebbinghausService.get(this.id).subscribe(data => {
+      this.dto = data;
+    });
   }
 
   review() {

@@ -13,6 +13,7 @@ import { ErrorInterceptor } from './shared/auth/error.interceptor';
 import { LoggingInterceptor } from './shared/auth/logging.interceptor';
 import { material } from './shared/common.material';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { TechModule } from './tech/tech.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     HttpClientModule,
     AuthModule,
     EbbinghausModule,
+    TechModule,
     BrowserAnimationsModule,
     AppRoutingModule
   ],
