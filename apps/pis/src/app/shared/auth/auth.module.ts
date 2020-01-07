@@ -8,7 +8,7 @@ import { ShowIfLoggedInDirective } from './login.directive';
 
 @NgModule({
   declarations: [
-    
+    ShowIfLoggedInDirective
   ],
   imports: [
     CommonModule
@@ -20,7 +20,7 @@ import { ShowIfLoggedInDirective } from './login.directive';
     SessionService
   ],
   exports:[
-    
+    ShowIfLoggedInDirective
   ]
 })
 export class AuthModule { }
