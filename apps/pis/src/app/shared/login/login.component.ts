@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-import { AuthenticationService } from '../auth/authentication.service';
+import { SessionService } from '../auth/login.service';
+import { SessionQuery } from '../auth/login.query';
+
 
 @Component({
   selector: 'pis-login',
@@ -20,10 +21,11 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
+        private sessionService: SessionService,
+        private sessionQuery: SessionQuery
     ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.sessionQuery.isLoggedIn()) { 
             console.log("has logged in. to / ");
             this.router.navigate(['/']);
         }
@@ -52,16 +54,11 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
+        this.sessionService.login(this.f.username.value, this.f.password.value)
             .subscribe(
-                data => {
-                    console.log("in loginComponent 001" + this.returnUrl );
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    console.log("in loginComponent 002");
-                    this.error = error;
-                    this.loading = false;
+                () => {
+                    console.log("in loginComponent 001 success  " + this.returnUrl );
+                    this.router.navigateByUrl(this.returnUrl);
                 });
     }
 }

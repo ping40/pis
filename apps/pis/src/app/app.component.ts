@@ -1,24 +1,27 @@
-import { Component } from '@angular/core';
-import { UserData } from '@pis/api-interfaces';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from './shared/auth/authentication.service';
+import { SessionService } from './shared/auth/login.service';
+import { SessionQuery } from './shared/auth/login.query';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'pis-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  currentUser: UserData;
+export class AppComponent  implements OnInit{
+  name$: Observable<string>;
   
-  constructor(private router: Router,
-    private authenticationService: AuthenticationService) {
-      this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  constructor(private authService: SessionService, 
+    private authQuery: SessionQuery,
+    private router: Router) {}
+
+    ngOnInit() {
+      this.name$ = this.authQuery.name$;
     }
 
     logout() {
-      this.currentUser = null;
-      this.authenticationService.logout();
-      this.router.navigate(['/login']);
+      this.authService.logout();
+      this.router.navigateByUrl('/login');
   }
 }

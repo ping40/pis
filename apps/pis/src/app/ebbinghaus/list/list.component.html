@@ -5,7 +5,7 @@
 <div class="example-table-container">
     <mat-form-field>
         <mat-label>列表范围</mat-label>
-        <mat-select (selectionChange)="scopeChange($event)" [(value)]="selected">
+        <mat-select (selectionChange)="scopeChange()" [(value)]="selected">
             <mat-option value="all">所有知识点</mat-option>
             <mat-option value="today">今天要复习的知识点</mat-option>
         </mat-select>

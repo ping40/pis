@@ -13,8 +13,8 @@
   <a mat-button [routerLink]="'/activities'"> Activities </a-->
 
   <span class="example-fill-remaining-space"></span>
-  <span> {{currentUser?.name}}</span>
-  <button *ngIf="currentUser"
+  <span> {{name$ | async}}</span>
+  <button  *pisShowIfLoggedIn="true"
     mat-icon-button
     [matMenuTriggerFor]="menu"
     aria-label="Example icon-button with a menu"
@@ -56,3 +56,9 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+
+<p *ngIf="true">
+  Expression is true and ngIf is true.
+  This paragraph is in the DOM.
+</p>

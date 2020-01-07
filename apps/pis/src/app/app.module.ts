@@ -14,10 +14,16 @@ import { LoggingInterceptor } from './shared/auth/logging.interceptor';
 import { material } from './shared/common.material';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { TechModule } from './tech/tech.module';
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { environment } from '../environments/environment';
+import { ShowIfLoggedInDirective } from './shared/auth/login.directive';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [
+    AppComponent, 
+    LoginComponent,
+    ShowIfLoggedInDirective],
   imports: [
     BrowserModule,
     ...material, 
@@ -26,7 +32,8 @@ import { TechModule } from './tech/tech.module';
     EbbinghausModule,
     TechModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot()
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
