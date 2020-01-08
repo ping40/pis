@@ -6,7 +6,8 @@
            <angular-editor name="content" [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent" [config]="editorConfig"></angular-editor>
       </div>
 
-      <button type="submit" class="btn btn-success">提交</button>
+      <button mat-flat-button color="primary" type="submit" class="ml-3">提交</button>
+      <button mat-flat-button (click)="cancel()" >取消</button>
 
     </form>
 </div>

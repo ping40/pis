@@ -66,7 +66,7 @@ constructor(private cdRef : ChangeDetectorRef,
 
   ngOnInit() {
     const idStr = this.avtiveroute.snapshot.paramMap.get("id");
-    if( idStr !== '') {
+    if( idStr !== '' && +idStr > 0 ) {
       this.id = parseInt(idStr, 10);
       this.ebbinghausService.get(this.id).subscribe(data => (this.htmlContent  = data.content));
     }
@@ -80,8 +80,12 @@ constructor(private cdRef : ChangeDetectorRef,
     console.log("in new.component.ts:  dto.content " + dto.content );
     this.ebbinghausService.edit(dto).
     subscribe(
-      () => this.route.navigate(['/knowledgepoint/list'])
+      () => this.route.navigateByUrl('/knowledgepoint/list')
     );
+  }
+
+  cancel() {
+    this.route.navigateByUrl('/knowledgepoint/list')
   }
 
 }

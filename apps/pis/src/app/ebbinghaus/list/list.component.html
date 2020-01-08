@@ -5,14 +5,14 @@
 <div class="example-table-container">
     <mat-form-field>
         <mat-label>列表范围</mat-label>
-        <mat-select (selectionChange)="scopeChange()" [(value)]="selected">
+        <mat-select (selectionChange)="scopeChange()" [(value)]="listUIValue.filter">
             <mat-option value="all">所有知识点</mat-option>
-            <mat-option value="today">今天要复习的知识点</mat-option>
+            <mat-option selected value="today">今天要复习的知识点</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="ml-3">
-        <input matInput #inputFilter [(ngModel)]="filterContent" placeholder="搜索内容">
+        <input matInput #inputFilter placeholder="搜索内容" value="{{listUIValue.searchTerm}}">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
 

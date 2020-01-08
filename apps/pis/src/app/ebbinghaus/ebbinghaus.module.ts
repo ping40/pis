@@ -12,6 +12,7 @@ import { MydatePipe } from '../shared/pipe/mydate.pipe';
 import { KpStatusPipe } from '../shared/pipe/kpStatus.pipe';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { MemoComponent } from './memo/memo.component';
+import { ListUIService } from './list/listui.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MemoComponent } from './memo/memo.component';
   ],
   providers:[
     AuthGuard,
-    EbbinghausService
+    EbbinghausService,
+    ListUIService
   ],
   entryComponents:[
     MemoComponent,

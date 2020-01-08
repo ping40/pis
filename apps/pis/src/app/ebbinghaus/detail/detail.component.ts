@@ -40,7 +40,7 @@ export class DetailComponent implements OnInit {
 
   delete() {
     this.ebbinghausService.delete(this.id).subscribe(() => {
-      this.router.navigate(['/knowledgepoint/list']);
+      this.router.navigateByUrl('/knowledgepoint/list');
     });
   }
 
@@ -58,5 +58,9 @@ export class DetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.getData();
     });
+  }
+
+  cancel() {
+    this.router.navigateByUrl('/knowledgepoint/list');
   }
 }
