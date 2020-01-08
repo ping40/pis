@@ -24,3 +24,5 @@ Personal Intelligent System api
 - nx
 - akita
 - angular
+-  npm run lint
+- npm run format
