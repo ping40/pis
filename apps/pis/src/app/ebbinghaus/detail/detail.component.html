@@ -1,13 +1,19 @@
 <div class="container border border-primary rounded-lg mt-2">
-    <p class="text-info">知识点时间:{{ dto.createDate | mydate }}</p>
+  <p class="text-info">知识点时间:{{ dto.createDate | mydate }}</p>
   <div class="row">
-    <div class="alert alert-primary col" role="alert" [innerHtml]="dto.content"></div>
+    <div
+      class="alert alert-primary col"
+      role="alert"
+      [innerHtml]="dto.content"
+    ></div>
   </div>
 
   <br />
   <p class="text-info">复习记录</p>
   <div class="row">
-    <span  class="text-muted ml-3" *ngFor="let item of dto.logs">{{ item.reviewDate | mydate }}</span>
+    <span class="text-muted ml-3" *ngFor="let item of dto.logs">{{
+      item.reviewDate | mydate
+    }}</span>
   </div>
 
   <span class="text-info">备注</span>
@@ -21,16 +27,28 @@
   </div>
 
   <div class="row">
-    <button mat-raised-button color="primary" (click)="review()">
+    <button mat-raised-button color="primary" (click)="review()" class="m-1">
       标记为复习过了
     </button>
-    <button mat-raised-button *ngIf="dto.isToday" color="primary" (click)="delete()">
+    <button
+      mat-raised-button
+      *ngIf="dto.isToday"
+      color="primary"
+      (click)="delete()"
+      class="m-1"
+    >
       删除
     </button>
-    <button mat-raised-button *ngIf="dto.isToday" color="primary" (click)="edit()">
+    <button
+      mat-raised-button
+      *ngIf="dto.isToday"
+      color="primary"
+      (click)="edit()"
+      class="m-1"
+    >
       编辑
     </button>
-    <button mat-raised-button  color="primary" (click)="cancel()">
+    <button mat-raised-button color="primary" (click)="cancel()" class="m-1">
       返回列表
     </button>
   </div>

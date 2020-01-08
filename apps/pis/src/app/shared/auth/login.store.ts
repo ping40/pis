@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Store, StoreConfig } from "@datorama/akita";
 //import * as storage from "../storage";
 
-export type SessionState = {
+export interface SessionState {
   token: string;
   name: string;
 }
@@ -10,9 +10,9 @@ export type SessionState = {
 export function createInitialSessionState(): SessionState {
   return {
     token: null,
-    name: null,
-  //  ...storage.getSession(),
-  }
+    name: null
+    //  ...storage.getSession(),
+  };
 }
 
 @StoreConfig({ name: "session" })
